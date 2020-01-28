@@ -1,0 +1,49 @@
+#version 420 core
+
+layout (location = 0) in vec2 aPos;
+layout (location = 1) in vec2 aTexCoords;
+
+out vec2 TexCoords;
+
+uniform int idx;
+uniform int maxsz;
+
+void main()
+{
+    gl_Position = vec4(aPos.x, aPos.y, 0.0, 1.0);
+    TexCoords = aTexCoords;
+    
+    // idx = y * maxsz + x
+    int xshift = idx % maxsz;
+    int yshift = (idx - xshift) / maxsz;
+    
+    int xcoord0 = xshift * 256;
+    int ycoord0 = yshift * 256;
+    int xcoord1 = xcoord0 + 255;
+    int ycoord1 = ycoord0 + 255;
+    int pixlen = maxsz * 256;
+    
+    float x0 = (0.5f + xcoord0) / pixlen;
+    float y0 = (0.5f + ycoord0) / pixlen;
+    float x1 = (0.5f + xcoord1) / pixlen;
+    float y1 = (0.5f + ycoord1) / pixlen;
+    
+    /*
+    float len = 1.0f / maxsz;
+    float x0 = xshift * len;
+    float y0 = yshift * len;
+    float x1 = x0 + len;
+    float y1 = y0 + len;
+    */
+    
+     if (TexCoords.x > 0.5)
+     TexCoords.x = x1;
+     else
+     TexCoords.x = x0;
+     
+     if (TexCoords.y > 0.5)
+     TexCoords.y = y1;
+     else
+     TexCoords.y = y0;
+}
+

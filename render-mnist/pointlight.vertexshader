@@ -1,0 +1,64 @@
+#version 420 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 1) in vec3 vertexNormal_modelspace;
+layout(location = 2) in vec2 vertexUV;
+
+// Output data ; will be interpolated for each fragment.
+out vec3 Normal_cameraspace;
+out vec2 UV;
+out vec3 LightDirection_cameraspace;
+
+// Values that stay constant for the whole mesh.
+uniform mat4 M;
+uniform mat4 V;
+uniform mat4 P;
+
+uniform vec3 lightPosition_modelspace;
+
+uniform float istex;
+
+out float lp;
+out float pv;
+out float costerm;
+
+void main(){
+	// model view
+	vec4 p0 = M * vec4(vertexPosition_modelspace, 1);
+	
+	// camera view
+	vec3 p1 = p0.xyz - vec3(0, 0, 1);
+	vec4 p2 = V * vec4(p1, 0);
+	vec3 p3 = p2.xyz + vec3(0, 0, 1);
+	
+	// projection view
+	vec4 p4 = P * vec4(p3, 1);
+	gl_Position =  p4;
+	
+	float k = (p0.z - 1) / V[2][2];
+	float x = p0.x - k * V[0][2];
+	float y = p0.y - k * V[1][2];
+	gl_Position.x = x;
+	gl_Position.y = y;
+	vec3 pfinal = vec3(x, y, 1);
+	
+	// Normal of the the vertex, in camera space
+	Normal_cameraspace = ( V * M * vec4(vertexNormal_modelspace, 0)).xyz; // Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.
+	
+	// UV of the vertex. No special space for this one.
+	if (istex > 0)
+	{
+		UV = vertexUV;
+	}
+	
+	// Vector that goes from the vertex to the camera, in camera space.
+	vec3 LightDirection_modelspace = lightPosition_modelspace - p0.xyz;
+	LightDirection_cameraspace = ( V * vec4(LightDirection_modelspace, 0)).xyz;
+	
+	// distance factor
+	pv = length(pfinal - p0.xyz);
+	lp = length(LightDirection_modelspace);
+	costerm = V[2][2];
+}
+
