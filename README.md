@@ -33,9 +33,15 @@ If you find it is useful, please cite
 
 
   @InProceedings{chen_2019_nlos,
-    author={Chen, Wenzheng and Daneau, Simon and Mannan, Fahim and Heide, Felix},
-    title={Steady-state Non-Line-of-Sight Imaging},
-    booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month = {June},
-    year = {2019}
+  
+     author={Chen, Wenzheng and Daneau, Simon and Mannan, Fahim and Heide, Felix},
+  
+     title={Steady-state Non-Line-of-Sight Imaging},
+     
+     booktitle = {The IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+     
+     month = {June},
+     
+     year = {2019}
+  
   }
