@@ -90,9 +90,9 @@ void main(){
 		// Ambient : simulates indirect lighting
 		(MaterialAmbientColor +
 		// Diffuse : "color" of the object
-		MaterialDiffuseColor ) * ObjectColor
+		MaterialDiffuseColor 
 		// Specular : reflective highlight, like a mirror
-		+ MaterialSpecularColor;
+		+ MaterialSpecularColor ) * ObjectColor;
 	
 	color = costerm * color;
 	// color = clamp( costerm * color, 0, 1 );
