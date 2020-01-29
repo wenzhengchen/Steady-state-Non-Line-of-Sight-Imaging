@@ -39,12 +39,12 @@ python train.py
 
 We capture 10 examples, including 3 mnist examples and 7 shapenet examples. We will upload soon.
 
-**Captured Data: side view image, our reconstruction and captures**
-
+**Captured Data: side view image, our reconstruction and captures**</br>
 <img src="./captures/Screenshot from 2020-01-28 22-45-08.png" width = "200px" />
 <img src="./captures/Screenshot from 2020-01-28 22-45-14.png" width = "200px" />
 <img src="./captures/input_5.png" width = "200px" />
 <img src="./captures/input_2.png" width = "200px" />
+
 
 
 ### citation
